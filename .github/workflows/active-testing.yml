@@ -12,7 +12,7 @@ jobs:
       - name: Build images
         run: ./deploy/docker/build-all.sh
         env:
-          DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
-          VERSION: ${{ secrets.DOCKER_TAG }}
+          DOCKER_REPO: location
+          VERSION: testing
       - name: Launch crAPI
         run: docker compose up -d
