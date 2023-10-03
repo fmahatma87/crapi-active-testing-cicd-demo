@@ -1,0 +1,18 @@
+name: Build and Test crAPI
+on:
+  push:
+
+jobs:
+  build-and-test-images:
+    runs-on: ubuntu-20.04
+    environment: development
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build images
+        run: ./deploy/docker/build-all.sh
+        env:
+          DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
+          VERSION: ${{ secrets.DOCKER_TAG }}
+      - name: Launch crAPI
+        run: docker compose up -d
