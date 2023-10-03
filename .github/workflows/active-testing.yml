@@ -46,7 +46,7 @@ jobs:
           --api-token=${{ secrets.ACTIVE_API_TOKEN }}
           --test-group-id=3f2e79c7-f237-417f-94a0-e50f07713d3d
           --branch-name=${{ github.head_ref || github.ref_name }}
-          --severity-threshold=none
+          --severity-threshold=high
         env:
           ACTIVE_API_URL: https://jmfamily-atsandbox.nnsworkshop.com/active
           ACTIVE_APP_ID: 5765f65e-9dba-404a-a30e-0a1dc0aafda2
