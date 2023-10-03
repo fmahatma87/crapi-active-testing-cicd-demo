@@ -71,50 +71,7 @@ const baselineUser = async (user, orderQuantity) => {
 
     //add our vehicle
     await crapi.addVehicle(user, vin, pin)
-    //simulate the same API call behavior that web UI generates
-    await crapi.dashboard(user)
-    const vehicles = await crapi.getVehicles(user)
-    const vehicleId = vehicles.data[0].uuid
-    //'click' the refresh location button
-    await crapi.getVehicleLocation(user, vehicleId)
-
-    //set our avatar
-    await crapi.setAvatar(user)
-
-    //'click' contact mechanic
-    await crapi.getMechanics(user)
-
-    const mechanicReport = await crapi.makeMechanicReport(user, vin, 'TRAC_JHN', faker.lorem.sentence())
-    await crapi.getMechanicReport(user, mechanicReport.data.response_from_mechanic_api.id)
-
-    //'click' Shop
-    const products = await crapi.getProducts(user)
-
-    //place an order and simulate web ui behavior
-    const productId = products.data.products[0].id
-    await crapi.placeOrder(user, productId, orderQuantity ?? 1)
-    const pastOrders = await crapi.getPastOrders(user)
-
-    //return order
-    const pastOrderId = pastOrders.data.orders[0].id
-    await crapi.returnOrder(user, pastOrderId)
-
-    //'click' on community
-    const recentPosts = await crapi.getRecentPosts(user)
-    //'read' all posts
-    for (var post of recentPosts.data) {
-      try {
-        //add a comment to the post
-        await crapi.addComment(user, post.id, faker.lorem.paragraph())
-        //retrieve the post
-        await crapi.getPost(user, post.id)
-      } catch {}
-    }
-
-    //make a forum post; simulate webui behavior
-    const myPost = await crapi.makePost(user, faker.lorem.sentence(), faker.lorem.paragraphs(2))
-    await crapi.getPost(user, myPost.data.id)
-  } catch(err) {
+  } catch (err) {
     if (user) console.log(`Error running baseline for ${user.email} / ${user.name}`)
     console.log(err)
   } //just keep going
@@ -122,10 +79,7 @@ const baselineUser = async (user, orderQuantity) => {
 
 console.log('Baseline started')
 const users = [...Array(config.usersToSimulate)]
-await PromisePool
-  .withConcurrency(config.batchSize)
-  .for(users)
-  .process(baselineUser)
+await PromisePool.withConcurrency(config.batchSize).for(users).process(baselineUser)
 console.log('Baseline complete')
 
 await baselineUser(janeDoe, -999999999)

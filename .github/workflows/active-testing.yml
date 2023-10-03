@@ -26,7 +26,7 @@ jobs:
           node .
         working-directory: baseline-script
         env:
-          USERS_TO_BASELINE: 1
+          USERS_TO_SIMULATE: 1
 
       - name: Docker login for Noname CLI
         uses: docker/login-action@v1
@@ -40,7 +40,7 @@ jobs:
           docker run
           --add-host=host.docker.internal:host-gateway
           -e ACTIVE_CONFIG_FILE_PATH=/noname/active-config.json
-          -v $(pwd)/noname:noname
+          -v $(pwd)/noname:/noname
           jfrog.cicd.nonamesec.com/noname-docker-release/active-cli:$(curl -k ${{env.ACTIVE_API_URL}}/backend/version) scan
           --api-url=${{ env.ACTIVE_API_URL }}
           --api-token=${{ secrets.ACTIVE_API_TOKEN }}
