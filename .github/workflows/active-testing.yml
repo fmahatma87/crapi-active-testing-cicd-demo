@@ -16,3 +16,14 @@ jobs:
           VERSION: testing
       - name: Launch crAPI
         run: docker compose up -d
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Stage data for testing
+        run: |
+          npm install
+          node .
+        working-directory: baseline-script
+        env:
+          USERS_TO_BASELINE: 1
