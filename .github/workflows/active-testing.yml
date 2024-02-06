@@ -48,5 +48,5 @@ jobs:
           --branch-name=${{ github.head_ref || github.ref_name }}
           --severity-threshold=high
         env:
-          ACTIVE_API_URL: https://jmfamily-atsandbox.nnsworkshop.com/active
+          ACTIVE_API_URL: https://ibm-raleigh.nnsworkshop.com/active
           ACTIVE_APP_ID: 5765f65e-9dba-404a-a30e-0a1dc0aafda2
