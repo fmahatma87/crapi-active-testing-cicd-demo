@@ -1,7 +1,7 @@
 {
   "version": "1.1.0",
   "applicationId": "5765f65e-9dba-404a-a30e-0a1dc0aafda2",
-  "host": "http://host.docker.internal:80",
+  "host": "http://host.docker.internal:81",
   "sources": [
     {
       "name": "crAPI",
